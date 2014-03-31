@@ -71,7 +71,8 @@ class EEPROMData(object):
 
 class MCP2210(object):
     def __init__(self, vid, pid):
-        self.hid = hid.device(vid, pid)
+        self.hid = hid.device()
+        self.hid.open(vid, pid)
         self.gpio_direction = GPIOSettings(self, commands.GetGPIODirectionCommand, commands.SetGPIODirectionCommand)
         self.gpio = GPIOSettings(self, commands.GetGPIOValueCommand, commands.SetGPIOValueCommand)
         self.eeprom = EEPROMData(self)
