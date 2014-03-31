@@ -40,7 +40,7 @@ class GPIOSettings(object):
             self.raw &= ~(1 << i)
 
 
-def remote_property(name, get_command, set_command, field_name):
+def remote_property(name, get_command, set_command, field_name, doc=None):
     """Property decorator that facilitates writing properties for values from a remote device.
 
     Arguments:
@@ -62,7 +62,7 @@ def remote_property(name, get_command, set_command, field_name):
         setattr(self, name, value)
         self.sendCommand(set_command(value))
 
-    return property(getter, setter)
+    return property(getter, setter, doc=doc)
 
 
 class EEPROMData(object):
@@ -143,50 +143,50 @@ class MCP2210(object):
         '_manufacturer_name',
         commands.GetUSBManufacturerCommand,
         commands.SetUSBManufacturerCommand,
-        'string')
-    manufacturer_name.__doc__ = "Sets and gets the MCP2210 USB manufacturer name"
+        'string',
+        doc="Sets and gets the MCP2210 USB manufacturer name")
 
     product_name = remote_property(
         '_product_name',
         commands.GetUSBProductCommand,
         commands.SetUSBProductCommand,
-        'string')
-    product_name.__doc__ = "Sets and gets the MCP2210 USB product name"
+        'string',
+        doc="Sets and gets the MCP2210 USB product name")
 
     boot_chip_settings = remote_property(
         '_boot_chip_settings',
         commands.GetBootChipSettingsCommand,
         commands.SetBootChipSettingsCommand,
-        'settings')
-    boot_chip_settings.__doc__ = "Sets and gets boot time chip settings such as GPIO assignments"
+        'settings',
+        doc="Sets and gets boot time chip settings such as GPIO assignments")
 
     chip_settings = remote_property(
         '_chip_settings',
         commands.GetChipSettingsCommand,
         commands.SetChipSettingsCommand,
-        'settings')
-    chip_settings.__doc__ = "Sets and gets current chip settings such as GPIO assignments"
+        'settings',
+        doc="Sets and gets current chip settings such as GPIO assignments")
 
     boot_transfer_settings = remote_property(
         '_boot_transfer_settings',
         commands.GetBootSPISettingsCommand,
         commands.SetBootSPISettingsCommand,
-        'settings')
-    boot_transfer_settings.__doc__ = "Sets and gets boot time transfer settings such as data rate"
+        'settings',
+        doc="Sets and gets boot time transfer settings such as data rate")
 
     transfer_settings = remote_property(
         '_transfer_settings',
         commands.GetSPISettingsCommand,
         commands.SetSPISettingsCommand,
-        'settings')
-    transfer_settings.__doc__ = "Sets and gets current transfer settings such as data rate"
+        'settings',
+        doc="Sets and gets current transfer settings such as data rate")
 
     boot_usb_settings = remote_property(
         '_boot_usb_settings',
         commands.GetBootUSBSettingsCommand,
         commands.SetBootUSBSettingsCommand,
-        'settings')
-    boot_usb_settings.__doc__ = "Sets and gets boot time USB settings such as VID and PID"
+        'settings',
+        doc="Sets and gets boot time USB settings such as VID and PID")
 
     def authenticate(self, password):
         """Authenticates against a password-protected MCP2210.
