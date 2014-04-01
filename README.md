@@ -15,6 +15,7 @@ or, clone this repository and install from source:
 
 ## Usage
 
+    >>> from mcp2210 import MCP2210
     >>> dev = MCP2210(my_vid, my_pid)
     >>> dev.transfer("data")
 
